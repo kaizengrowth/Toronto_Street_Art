@@ -8,12 +8,17 @@ post '/search' do
   @street1 = params[:search1]
   @street2 = params[:search2]
   @intersection = Intersection.find_all_by_address(@street1, @street2)
+  puts @intersections
   erb :'/intersections/show'
 end
 
 get '/user_page' do
-  @pictures = Picture.all
-  erb :user_page
+  if current_user
+    @pictures = current_user.pictures
+    erb :user_page
+  else
+    erb :login
+  end
 end
 
 

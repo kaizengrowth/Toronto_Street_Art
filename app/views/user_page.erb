@@ -1,9 +1,6 @@
 <HEAD>
     <TITLE>My Posted Artwork</TITLE>
       <h1>MY STREET ART</h1>
-
-    </div>
-
     <!-- ## Login  ## -->
 
 
@@ -17,10 +14,10 @@
         <li><a href="#">Upload Artwork</a></li>
         <li><a href="#">Edit Collection</a></li>
         <li>
-          <form role="search" class="navbar-form navbar-left">
+          <form action="/search" method="get" class="navbar-form navbar-left">
             <div class="form-group">
-                <input type="text" placeholder="Street 1" class="form-control">
-                <input type="text" placeholder="Street 2" class="form-control">
+                <input type="text" name="street1" placeholder="Street 1" class="form-control">
+                <input type="text" name="street2" placeholder="Street 2" class="form-control">
             </div>
             <button type="submit" class="btn btn-default">Find Art!</button>
           </form>

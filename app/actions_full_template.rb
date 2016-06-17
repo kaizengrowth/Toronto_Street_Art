@@ -5,8 +5,8 @@ get '/' do
 end
 
 post '/search' do
-  @street1 = params[:search1]
-  @street2 = params[:search2]
+  @street1 = params[:street1]
+  @street2 = params[:street2]
   @intersection = Intersection.find_all_by_address(@street1, @street2)
   erb :'/intersections/show'
 end
