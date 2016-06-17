@@ -1,0 +1,16 @@
+<h1> <%= @user.name %>'s Pictures </h1>¡
+
+<% @user.pictures.each do |picture| %>
+
+  <div class="picture">
+    <h3><small>Submitted by:</small> <%= picture.user.name %> </h3>
+    <p><small> Posted on: <%= picture.created_at %></small></p>
+
+    <img src="<%= picture.img_url %>" width="450">
+    <h2><small>Artist:</small> <%= picture.artist_name %> </h2>
+    <p> <%= picture.text %> </p>
+
+    <br>
+    <br>
+  </div>
+<% end %>

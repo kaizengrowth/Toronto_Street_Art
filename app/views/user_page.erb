@@ -1,0 +1,65 @@
+<h1><%= current_user.name %>'s Pictures</h1>
+
+<h2>Add A New Picture</h2>
+
+<form method = 'post' action = '/upload'>
+  <input type="hidden" name="user_id" value= " <%=current_user.id%>" >
+  <div>
+    <label>Image URL</label>
+    <input type="text" name="url">
+  </div>
+  <div>
+    <label>Street 1</label>
+    <input type="text" name="street1">
+  </div>
+  <div>
+    <label>Street 2</label>
+    <input type="text" name="street2">
+  </div>
+  <div>
+    <label>Artist Name</label>
+    <input type="text" name="artist_name">
+  </div>
+  <div>
+    <label>Comments</label>
+    <input type="text" name="text">
+  </div>
+  <div>
+    <label>Additional Links</label>
+    <input type="text" name="link">
+  </div>
+  <div>
+    <input type="submit" value="Submit">
+  </div>
+</form>
+
+<button><a href="/">Return home</a></button>
+
+<br/>
+
+<h2>My Posted Artwork</h2>
+<% current_user.posts.each do |post| %>
+  <%=post.id%>
+  <div class="post">
+    <h4><small>(submitted by: <%= post.user.email %>) </small></h4>
+      <a href="/post/<%=post.id %>"><img src="<%= post.url %>"></a>
+    <p>
+      Found at: <%= post.artwork.street1%> and <%= post.artwork.street2%>
+    </p>
+    <p><%= post.text %></p>
+    <h3><%= post.artist_name%></h3>
+    <p>
+      Posted on: <%=post.created_at%>
+    </p>
+    <br>
+    <a href = "<%= post.link %>"%></a>
+
+  <form method="post" action="/posts/<%= post.id %>/delete">
+    <div>
+      <input type="submit" value="Delete">
+    </div>
+  </form>
+
+  </div>
+
+<% end %>

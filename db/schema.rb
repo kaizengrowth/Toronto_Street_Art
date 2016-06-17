@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160617015007) do
+ActiveRecord::Schema.define(version: 20160617043222) do
 
   create_table "intersections", force: :cascade do |t|
     t.string "street1", null: false
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20160617015007) do
   add_index "intersections", ["street1"], name: "index_intersections_on_street1"
   add_index "intersections", ["street2"], name: "index_intersections_on_street2"
 
-  create_table "posts", force: :cascade do |t|
+  create_table "pictures", force: :cascade do |t|
     t.string   "intersection_id", null: false
     t.string   "user_id",         null: false
     t.string   "img_url",         null: false
@@ -31,9 +31,9 @@ ActiveRecord::Schema.define(version: 20160617015007) do
     t.datetime "updated_at"
   end
 
-  add_index "posts", ["artist_name"], name: "index_posts_on_artist_name"
-  add_index "posts", ["intersection_id"], name: "index_posts_on_intersection_id"
-  add_index "posts", ["user_id"], name: "index_posts_on_user_id"
+  add_index "pictures", ["artist_name"], name: "index_pictures_on_artist_name"
+  add_index "pictures", ["intersection_id"], name: "index_pictures_on_intersection_id"
+  add_index "pictures", ["user_id"], name: "index_pictures_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "name",            null: false

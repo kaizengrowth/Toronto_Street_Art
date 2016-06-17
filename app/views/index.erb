@@ -1,43 +1,81 @@
-<h1>Toronto Street Art</h1>
+<HEAD>
+  <TITLE>Toronto Street Art</TITLE>
+  <H1>TORONTO STREET ART</H1>
 
-<% if current_user %>
-  <form method = 'get' action = '/logout'>
-  <input type="submit" value = "logout">
-  </form>
-<% else %>
-  <%= partial(:login_form) %>
-<% end %>
+  <!-- ## Login  ## -->
+
+  <% if current_user %>
+    <form method = 'get' action = '/logout'>
+    <input type="submit" value = "logout">
+    </form>
+  <% else %>
+    <form action="/session" method="post">
+    <div>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+    </div>
+
+    <div>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+    </div>
+
+    <br><div>
+        <label><input type="checkbox" name="remember_me" value="true"> Remember Me</label>
+    </div>
+
+    <br><div>
+        <button type="submit">Log In</button>
+    </div>
+    </form>
+  <% end %>
 <br />
 
 
-<form method = 'post' action = '/search'>
-  <div>
-    <label>Search street 1</label>
-    <input type="text" name="street1">
-  </div>
-  <div>
-    <label>Search street 2</label>
-    <input type="text" name="street2">
-  </div>
-  <div>
-    <input type="submit" value="Submit">
-  </div>
-</form>
 
+</HEAD>
 
-<% @posts.each do |post| %>
-  <div class="post">
-    <h3><small>(submitted by: <%= post.user.email %>)</small></h3>
-      <p>
-        Posted on: <%=post.created_at%>
-      </p>
-    <a href="/post/<%=post.id %>"><img src="<%= post.url %>"></a>
-    <p>Found at: <%= post.artwork.street1%> and <%= post.artwork.street2%></p>
-    <p><%= post.text %></p>
-    <h3><%= post.artist_name%></h3>
-    <a href = "<%= post.link %>"%></a>
+<BODY>
 
+  <!-- ## Search  ## -->
+
+  <form method = 'post' action = '/search'>
+    <h3>Find street art by the nearest intersection.</h3>
+    <div>
+      <label>Street 1:</label>
+      <input type="text" name="search1">
+    </div>
+    <div>
+      <label>Street 2:</label>
+      <input type="text" name="search2">
+    </div>
     <br>
-  </div>
-<% end %>
-<p><a href="/post/new">New Post</a></p>
+    <div>
+      <input type="submit" value="Submit">
+    </div>
+  </form>
+
+  <br>
+  <br>
+
+  <!-- ##  Display Pictures ## -->
+  <h1>Recent Picture Submissions</h1>
+  <br>
+
+  <% @pictures.each do |picture| %>
+
+    <div class="picture">
+      <h2> <%= picture.intersection.street1%> <small> and </small> <%= picture.intersection.street2%></h2>
+      <h3><small>Submitted by:</small> <%= picture.user.name %> </h3>
+      <p><small> Posted on: <%= picture.created_at %></small></p>
+
+      <img src="<%= picture.img_url %>" width="450">
+      <h2><small>Artist:</small> <%= picture.artist_name %> </h2>
+      <p> <%= picture.text %> </p>
+
+      <br>
+      <br>
+    </div>
+  <% end %>
+
+</BODY>

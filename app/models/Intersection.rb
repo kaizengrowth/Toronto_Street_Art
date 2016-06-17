@@ -1,5 +1,5 @@
 class Intersection < ActiveRecord::Base
-  has_many :posts
+  has_many :pictures
 
   scope :find_all_by_address, -> (search1, search2) {
     where('street1 LIKE :search1 AND street2 LIKE :search2',
