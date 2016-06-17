@@ -1,36 +1,37 @@
 <HEAD>
   <TITLE>Toronto Street Art</TITLE>
-  <H1>TORONTO STREET ART</H1>
+<div class="modal-header">
+<div class="panel-heading">
+  <h1>TORONTO STREET ART</h1>
+</div>
+
 
   <!-- ## Login  ## -->
 
-  <% if current_user %>
-    <form method = 'get' action = '/logout'>
-    <input type="submit" value = "logout">
-    </form>
-  <% else %>
-    <form action="/session" method="post">
-    <div>
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
-    </div>
+<div class="panel-login">
 
-    <div>
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
-    </div>
+    <% if current_user %>
+      <form method = 'get' action = '/logout'>
+      <input type="submit" value = "logout">
+      </form>
+    <% else %>
+      <form action="/session" method="post">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
 
-    <br><div>
-        <label><input type="checkbox" name="remember_me" value="true"> Remember Me</label>
-    </div>
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required>
 
-    <br><div>
-        <button type="submit">Log In</button>
-    </div>
-    </form>
-  <% end %>
-<br />
+      <br>
+          <label><input type="checkbox" name="remember_me" value="true"> Remember Me</label>
+      <br>
+          <input type="submit" name="submit" value="Log In">
+        </div>
+      </form>
+    <% end %>
+    <br />
 
+</div>
 
 
 </HEAD>
@@ -39,39 +40,43 @@
 
   <!-- ## Search  ## -->
 
-  <form method = 'post' action = '/search'>
-    <h3>Find street art by the nearest intersection.</h3>
-    <div>
-      <label>Street 1:</label>
-      <input type="text" name="search1">
-    </div>
-    <div>
-      <label>Street 2:</label>
-      <input type="text" name="search2">
-    </div>
-    <br>
-    <div>
-      <input type="submit" value="Submit">
-    </div>
-  </form>
+<div class="jumbotron">
+  <!-- <video id="bg-video" autoplay="true" loop="loop" preload="metadata" muted="muted">
+        <source src="https://www.youtube.com/watch?v=iarSZjbkufk" type="video/TYPE" />
+  </video> -->
 
-  <br>
-  <br>
+  <h4>Find street art by the nearest intersection.</h4>
+  <form class="form-horizontal">
+    <form method = 'post' action = '/search'>
+      <div>
+        <label> // Street 1  </label> <&nbsp>>
+        <input type="text" name="search1">
+      </div>
+      <div>
+        <label>// Street 2  </label> <&nbsp>>
+        <input type="text" name="search2">
+      </div>
+      <br>
+      <div>
+        <p><a class="btn btn-success btn-lg"><input type="submit" value="Submit"></a></p>
+      </div>
+    </form>
+  </form>
+</div>
+
 
   <!-- ##  Display Pictures ## -->
-  <h1>Recent Picture Submissions</h1>
-  <br>
 
   <% @pictures.each do |picture| %>
 
     <div class="picture">
-      <h2> <%= picture.intersection.street1%> <small> and </small> <%= picture.intersection.street2%></h2>
+      <h2> // <%= picture.intersection.street1%> <small> AND </small> <%= picture.intersection.street2%> // </h2>
       <h3><small>Submitted by:</small> <%= picture.user.name %> </h3>
       <p><small> Posted on: <%= picture.created_at %></small></p>
 
-      <img src="<%= picture.img_url %>" width="450">
-      <h2><small>Artist:</small> <%= picture.artist_name %> </h2>
-      <p> <%= picture.text %> </p>
+      <img src="<%= picture.img_url %>" width="600">
+      <i><h5><small>Artist:</small> <%= picture.artist_name %> </h5></i>
+      <h6> <%= picture.text %> </h6>
 
       <br>
       <br>
