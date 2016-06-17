@@ -11,6 +11,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20160617015007) do
+
+  create_table "intersections", force: :cascade do |t|
+    t.string "street1", null: false
+    t.string "street2", null: false
+  end
+
+  add_index "intersections", ["street1"], name: "index_intersections_on_street1"
+  add_index "intersections", ["street2"], name: "index_intersections_on_street2"
+
+  create_table "posts", force: :cascade do |t|
+    t.string   "intersection_id", null: false
+    t.string   "user_id",         null: false
+    t.string   "img_url",         null: false
+    t.string   "artist_name"
+    t.string   "text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "posts", ["artist_name"], name: "index_posts_on_artist_name"
+  add_index "posts", ["intersection_id"], name: "index_posts_on_intersection_id"
+  add_index "posts", ["user_id"], name: "index_posts_on_user_id"
+
+  create_table "users", force: :cascade do |t|
+    t.string   "name",            null: false
+    t.string   "email",           null: false
+    t.string   "password_digest", null: false
+    t.string   "login_token"
+    t.string   "remember_token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

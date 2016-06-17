@@ -37,3 +37,7 @@ require APP_ROOT.join('config', 'database')
 
 # Load the routes / actions
 require APP_ROOT.join('app', 'actions')
+
+Dir[APP_ROOT.join('app', 'actions','*.rb')].each do |model_file|
+    require model_file
+end
