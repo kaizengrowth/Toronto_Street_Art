@@ -46,21 +46,20 @@
   </video> -->
 
   <h4>Find street art by the nearest intersection.</h4>
-  <form class="form-horizontal">
-    <form method = 'post' action = '/search'>
+
+    <form method='get' action='/search' class="form-horizontal">
       <div>
         <label> // Street 1  </label> <&nbsp>>
-        <input type="text" name="search1">
+        <input type="text" name="street1">
       </div>
       <div>
         <label>// Street 2  </label> <&nbsp>>
-        <input type="text" name="search2">
+        <input type="text" name="street2">
       </div>
       <br>
       <div>
         <p><a class="btn btn-success btn-lg"><input type="submit" value="Submit"></a></p>
       </div>
-    </form>
   </form>
 </div>
 

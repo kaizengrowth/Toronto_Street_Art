@@ -38,23 +38,23 @@
 <br/>
 
 <h2>My Posted Artwork</h2>
-<% current_user.posts.each do |post| %>
-  <%=post.id%>
-  <div class="post">
-    <h4><small>(submitted by: <%= post.user.email %>) </small></h4>
-      <a href="/post/<%=post.id %>"><img src="<%= post.url %>"></a>
+<% @pictures.each do |picture| %>
+  <%=picture.id%>
+  <div class="picture">
+    <h4><small>(submitted by: <%= picture.user.email %>) </small></h4>
+      <a href="/picture/<%=picture.id %>"><img src="<%= picture.img_url %>"></a>
     <p>
-      Found at: <%= post.artwork.street1%> and <%= post.artwork.street2%>
+      Found at: <%= picture.intersection.street1%> and <%= picture.intersection.street2%>
     </p>
-    <p><%= post.text %></p>
-    <h3><%= post.artist_name%></h3>
+    <p><%= picture.text %></p>
+    <h3><%= picture.artist_name%></h3>
     <p>
-      Posted on: <%=post.created_at%>
+      Posted on: <%=picture.created_at%>
     </p>
     <br>
-    <a href = "<%= post.link %>"%></a>
+    <a href = "<%= picture.img_url %>"</a>
 
-  <form method="post" action="/posts/<%= post.id %>/delete">
+  <form method="post" action="/posts/<%= picture.id %>/delete">
     <div>
       <input type="submit" value="Delete">
     </div>

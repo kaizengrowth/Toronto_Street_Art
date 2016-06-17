@@ -1,15 +1,20 @@
-<h1> <%= @intersection.street1 %> and <%= @intersection.street2 %> </h1>¡
+<h1> Your Search Results for <%= @street1 %> and <%= @street2 %> : </h1>
 
-<% @intersection.pictures.each do |picture| %>
 
-  <div class="picture">
-    <h3><small>Submitted by:</small> <%= picture.user.name %> </h3>
-    <p><small> Posted on: <%= picture.created_at %></small></p>
+<% if @intersections.present? %>
+  <% @intersections.each do |intersection| %>
+    <% intersection.pictures.each do |picture| %>
 
-    <img src="<%= picture.img_url %>" width="450">
-    <h2><small>Artist:</small> <%= picture.artist_name %> </h2>
-    <p> <%= picture.text %> </p>
-
+    <div class="picture">
+      <h3><small>Submitted by:</small> <%= picture.user.name %> </h3>
+      <p><small> Posted on: <%= picture.created_at %></small></p>
+      <img src="<%= picture.img_url %>" width="450">
+      <h2><small>Artist:</small> <%= picture.artist_name %> </h2>
+      <p> <%= picture.text %> </p>
+    <% end %>
+  <% end %>
+<% else %>
+    <h1>Sorry results not found!</h1>
     <br>
     <br>
   </div>

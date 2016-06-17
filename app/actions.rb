@@ -4,77 +4,78 @@ get '/' do
   erb :index
 end
 
-post '/search' do
-  @street1 = params[:search1]
-  @street2 = params[:search2]
-  @intersection = Intersection.find_all_by_address(@street1, @street2)
-  erb :'/intersections/show'
+get '/search' do
+  @street1 = params[:street1]
+  @street2 = params[:street2]
+  @intersections = Intersection.find_all_by_address(@street1, @street2)
+  puts @intersections
+  erb :'intersections/show'
 end
 
 ## -------- Picture Controllers -------- ##
 
 # Index
-  get '/pictures' do
-    @pictures = Picture.all
-    erb :index
-  end
+get '/pictures' do
+  @pictures = Picture.all
+  erb :index
+end
 
 ## -------- User Controllers -------- ##
 
 # Index
-  get '/users' do
-    @users = User.all
-    erb :index
-  end
+get '/users' do
+  @users = User.all
+  erb :index
+end
 
 ## -------- Session Controllers -------- ##
 
 # Login
 
 get '/login' do
-    erb :login
+  erb :login
+end
+
+def current_user
+  if cookies.key? :remember_me
+    user = User.find_by_remember_token(cookies[:remember_me])
+    return user if user
   end
 
-  def current_user
-    if cookies.key? :remember_me
-      user = User.find_by_remember_token(cookies[:remember_me])
-      return user if user
-    end
-
-    if session.key?(:user_session)
-      user = User.find_by_login_token(session[:user_session])
-    end
+  if session.key?(:user_session)
+    user = User.find_by_login_token(session[:user_session])
   end
+end
 
-  get '/login' do
-    if current_user
-      erb :user_page
-    else
-      redirect '/login'
-    end
+get '/login' do
+  if current_user
+    erb :user_page
+  else
+    redirect '/login'
   end
+end
 
-  post '/session' do
-    @user = User.find_by_email(params[:email])
+post '/session' do
+  @user = User.find_by_email(params[:email])
 
-    if @user && @user.authenticate(params[:password])
-      session[:user_session] = SecureRandom.hex
-      @user.login_token = session[:user_session]
+  if @user && @user.authenticate(params[:password])
+    session[:user_session] = SecureRandom.hex
+    @user.login_token = session[:user_session]
 
-      if params.key?('remember_me') && params[:remember_me] == 'true'
+    if params.key?('remember_me') && params[:remember_me] == 'true'
 
-        if @user.remember_token
-          response.set_cookie :remember_me, value: @user.remember_token, max_age: '2592000'
-        else
-          response.set_cookie :remember_me, value: SecureRandom.hex, max_age: '2592000'
-          @user.remember_token = cookies[:remember_me]
-        end
+      if @user.remember_token
+        response.set_cookie :remember_me, value: @user.remember_token, max_age: '2592000'
+      else
+        response.set_cookie :remember_me, value: SecureRandom.hex, max_age: '2592000'
+        @user.remember_token = cookies[:remember_me]
       end
     end
-
-    @user.save
   end
-#end
+
+  @user.save
+end
+# end
 
 # Logout
 
@@ -85,11 +86,21 @@ get '/logout' do
   end
 end
 
-
 ## -------- Intersection Controllers -------- ##
 
 # # index
 get '/intersections' do
   @intersection = Intersection.all
   erb :index
+end
+
+## -------- My Art Page -------- ##
+
+get '/user_page' do
+  if current_user
+    @pictures = current_user.pictures
+    erb :user_page
+  else
+    erb :login
+  end
 end
