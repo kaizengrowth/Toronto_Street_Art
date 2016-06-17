@@ -1,65 +1,86 @@
-<h1><%= current_user.name %>'s Pictures</h1>
+<HEAD>
+    <TITLE>My Posted Artwork</TITLE>
+      <h1>MY STREET ART</h1>
 
-<h2>Add A New Picture</h2>
-
-<form method = 'post' action = '/upload'>
-  <input type="hidden" name="user_id" value= " <%=current_user.id%>" >
-  <div>
-    <label>Image URL</label>
-    <input type="text" name="url">
-  </div>
-  <div>
-    <label>Street 1</label>
-    <input type="text" name="street1">
-  </div>
-  <div>
-    <label>Street 2</label>
-    <input type="text" name="street2">
-  </div>
-  <div>
-    <label>Artist Name</label>
-    <input type="text" name="artist_name">
-  </div>
-  <div>
-    <label>Comments</label>
-    <input type="text" name="text">
-  </div>
-  <div>
-    <label>Additional Links</label>
-    <input type="text" name="link">
-  </div>
-  <div>
-    <input type="submit" value="Submit">
-  </div>
-</form>
-
-<button><a href="/">Return home</a></button>
-
-<br/>
-
-<h2>My Posted Artwork</h2>
-<% current_user.posts.each do |post| %>
-  <%=post.id%>
-  <div class="post">
-    <h4><small>(submitted by: <%= post.user.email %>) </small></h4>
-      <a href="/post/<%=post.id %>"><img src="<%= post.url %>"></a>
-    <p>
-      Found at: <%= post.artwork.street1%> and <%= post.artwork.street2%>
-    </p>
-    <p><%= post.text %></p>
-    <h3><%= post.artist_name%></h3>
-    <p>
-      Posted on: <%=post.created_at%>
-    </p>
-    <br>
-    <a href = "<%= post.link %>"%></a>
-
-  <form method="post" action="/posts/<%= post.id %>/delete">
-    <div>
-      <input type="submit" value="Delete">
     </div>
-  </form>
+
+    <!-- ## Login  ## -->
+
+
+  <nav class="navbar navbar-fixed-bottom">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">My Street Art</a>
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">Upload Artwork</a></li>
+        <li><a href="#">Edit Collection</a></li>
+        <li>
+          <form role="search" class="navbar-form navbar-left">
+            <div class="form-group">
+                <input type="text" placeholder="Street 1" class="form-control">
+                <input type="text" placeholder="Street 2" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+        </li>
+        <li>
+
+        </li>
+      </ul>
+    </div>
+
+  </nav>
+
+    </HEAD>
+
+    <!-- ## Search  ## -->
+<BODY>
+  <div class="jumbotron">
+    <div class="panel-login">
+      <h3><%= current_user.name %>'s Pictures</h3>
+
+      <% if current_user %>
+        <form method= 'get' action = '/logout'>
+        <input type="submit" value = "Log Out">
+        </form>
+      <% else %>
+        <form action="/session" method="post">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+
+        <br>
+            <label><input type="checkbox" name="remember_me" value="true"> Remember Me</label>
+        <br>
+            <input type="submit" name="submit" value="Log In">
+          </div>
+        </form>
+      <% end %>
+      <br />
+    </div>
 
   </div>
 
+  <!-- ##  Display Pictures ## -->
+
+<% current_user.pictures.each do |picture| %>
+
+<div class="picture">
+  <h2> // <%= picture.intersection.street1%> <small> AND </small> <%= picture.intersection.street2%> // </h2>
+  <h3><small>Submitted by:</small> <%= picture.user.name %> </h3>
+  <p><small> Posted on: <%= picture.created_at %></small></p>
+
+  <img src="<%= picture.img_url %>" width="600">
+  <i><h5><small>Artist:</small> <%= picture.artist_name %> </h5></i>
+  <h6> <%= picture.text %> </h6>
+
+  <br>
+  <br>
+</div>
 <% end %>
+
+</BODY>

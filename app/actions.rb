@@ -11,6 +11,12 @@ post '/search' do
   erb :'/intersections/show'
 end
 
+get '/user_page' do
+  @pictures = Picture.all
+  erb :user_page
+end
+
+
 ## -------- Picture Controllers -------- ##
 
 # Index
@@ -26,6 +32,23 @@ end
     @users = User.all
     erb :index
   end
+
+# New
+get '/users/new' do
+  @user = User.new
+  erb :user_page¡
+end
+
+# Show
+get '/users/:id' do
+  @user = User.find(params[:id])
+  if @user
+    redirect "/users/#{@user.id}"
+  else
+    erb :'/error_pages/404'
+  end
+end
+
 
 ## -------- Session Controllers -------- ##
 
@@ -73,6 +96,7 @@ get '/login' do
     end
 
     @user.save
+    erb :user_page
   end
 #end
 

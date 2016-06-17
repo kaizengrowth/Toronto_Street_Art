@@ -4964,7 +4964,9 @@ a.badge:focus {
 .jumbotron {
   padding-top: 30px;
   padding-bottom: 30px;
+  padding-right: 30px;
   margin-bottom: 30px;
+  width: 100%;
   color: inherit;
   background-color: #1c1e22;
 }
@@ -4980,24 +4982,17 @@ a.badge:focus {
 .jumbotron > hr {
   border-top-color: #050506;
 }
-.container .jumbotron,
-.container-fluid .jumbotron {
-  border-radius: 6px;
-  padding-left: 15px;
-  padding-right: 15px;
 }
 .jumbotron .container {
-  max-width: 100%;
+  width: 100%;
+  min-height: 300px;
 }
 @media screen and (min-width: 768px) {
   .jumbotron {
     padding-top: 48px;
+    padding-left: 48px;
+    padding-right: 48px;
     padding-bottom: 48px;
-  }
-  .container .jumbotron,
-  .container-fluid .jumbotron {
-    padding-left: 60px;
-    padding-right: 60px;
   }
   .jumbotron h1,
   .jumbotron .h1 {
@@ -5477,10 +5472,10 @@ button.list-group-item-danger.active:focus {
   color: inherit;
 }
 .panel-login {
-  margin-top: 10px;
+  margin-top: 48px;
   margin-left: 10px;
-  margin-bottom: 10px;
-  margin-right: 10px;
+  margin-bottom: 20px;
+  margin-right: 48px;
   font-size: 16px;
   text-align: center;
   color: inherit;
@@ -6993,7 +6988,7 @@ h3 {
 }
 
 h4 {
-  font-size: 22px;
+  font-size: 24px;
   color: yellow;
 }
 
@@ -7318,16 +7313,9 @@ a.list-group-item-danger.active:focus {
   border: 1px solid rgba(0, 0, 0, 0.6);
   background-image: url(http://desktopbackgrounds4u.com/wp-content/gallery/black-graffiti-wallpaper/11204-1440x900.jpg);
   text-align: left;
+  min-height: 220px;
 }
-#bg-video {
-    top: 0px;
-    left: 0px;
-    position: absolute;
-    width: 100%;
-}
-.jumbovidtext {
-    z-index: 1;
-    position: absolute;
+
 }
 .panel-primary .panel-heading,
 .panel-success .panel-heading,

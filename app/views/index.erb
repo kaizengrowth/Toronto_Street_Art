@@ -1,7 +1,5 @@
 <HEAD>
   <TITLE>Toronto Street Art</TITLE>
-<div class="modal-header">
-<div class="panel-heading">
   <h1>TORONTO STREET ART</h1>
 </div>
 
@@ -12,7 +10,7 @@
 
     <% if current_user %>
       <form method = 'get' action = '/logout'>
-      <input type="submit" value = "logout">
+      <input type="submit" value = "Log Out">
       </form>
     <% else %>
       <form action="/session" method="post">
@@ -51,13 +49,9 @@
       <div>
         <label> // Street 1  </label> <&nbsp>>
         <input type="text" name="search1">
-      </div>
-      <div>
         <label>// Street 2  </label> <&nbsp>>
-        <input type="text" name="search2">
-      </div>
-      <br>
-      <div>
+        <input type="text" name="search2"
+      <br><br> <br>
         <p><a class="btn btn-success btn-lg"><input type="submit" value="Submit"></a></p>
       </div>
     </form>
