@@ -4,44 +4,106 @@ get '/' do
   erb :index
 end
 
-post '/search' do
-  @street1 = params[:search1]
-  @street2 = params[:search2]
-  @intersection = Intersection.find_all_by_address(@street1, @street2)
+get '/search' do
+  @street1 = params[:street1]
+  @street2 = params[:street2]
+  @intersections = Intersection.find_all_by_address(@street1, @street2)
   puts @intersections
-  erb :'/intersections/show'
+  erb :'intersections/show'
 end
 
 get '/user_page' do
   if current_user
     @pictures = current_user.pictures
+    @pictures.order(created_at: :DESC)
     erb :user_page
   else
     erb :login
   end
 end
 
+get '/signup' do
+  erb :signup
+end
+
+get '/404' do
+  erb :'/404'
+end
+
 
 ## -------- Picture Controllers -------- ##
 
 # Index
-  get '/pictures' do
-    @pictures = Picture.all
-    erb :index
-  end
+get '/pictures' do
+  @pictures = Picture.all
+  erb :index
+end
+
+# New
+get '/user_page/pictures/new' do
+ if current_user
+   erb :'pictures/new'
+ else
+   erb :'users/signup'
+ end
+end
+
+# Create
+post '/pictures/new' do
+ @new_picture = Picture.new(
+   img_url: params[:img_url],
+   artist_name: params[:artist_name],
+   text: params[:text]
+ )
+ @new_intersection = Intersection.new(
+   street1: params[:street1],
+   street2: params[:street2]
+ )
+ @new_intersection.save
+ @new_picture.user = current_user
+ @new_picture.intersection = @new_intersection
+ @new_picture.save
+ redirect :user_page
+end
+
+# Update
+get '/user_page/pictures/edit' do
+ if current_user
+   erb :'pictures/edit'
+   binding.pry
+ else
+   erb :'users/signup'
+ end
+end
+
+post '/user_page/pictures/edit' do
+ @edit_picture =Picture.find params[:id]
+ @edit_picture.update(
+   artist_name: params[:artist_name],
+   text: params[:text]
+ )
+ @edit_picture.save
+ redirect :user_page
+end
+
+# Delete
+post '/pictures/:id/delete' do
+ @picture = Picture.find params[:id]
+ @picture.destroy if @picture && @picture.user == current_user
+ redirect :user_page
+end
 
 ## -------- User Controllers -------- ##
 
 # Index
-  get '/users' do
-    @users = User.all
-    erb :index
-  end
+get '/users' do
+  @users = User.all
+  erb :'/'
+end
 
 # New
 get '/users/new' do
-  @user = User.new
-  erb :user_page¡
+  redirect :'/signup'
 end
 
 # Show
@@ -54,14 +116,24 @@ get '/users/:id' do
   end
 end
 
+# Create
+post '/users/new' do
+  @user = User.new(
+    name: params[:name],
+    email: params[:email],
+    password_digest: params[Password.create(:password)]
+  )
+  @user.save
+  redirect :'/'
+end
+
 
 ## -------- Session Controllers -------- ##
 
 # Login
-
 get '/login' do
-    erb :login
-  end
+  erb :login
+end
 
   def current_user
     if cookies.key? :remember_me
@@ -78,7 +150,7 @@ get '/login' do
     if current_user
       erb :user_page
     else
-      redirect '/login'
+      redirect '/signup'
     end
   end
 
@@ -101,7 +173,7 @@ get '/login' do
     end
 
     @user.save
-    erb :user_page
+    redirect :user_page
   end
 #end
 
@@ -110,14 +182,14 @@ get '/login' do
 get '/logout' do
   if current_user
     session.clear
-    redirect :'/'
   end
+  redirect :'/'
 end
 
 
 ## -------- Intersection Controllers -------- ##
 
-# # index
+# Index
 get '/intersections' do
   @intersection = Intersection.all
   erb :index

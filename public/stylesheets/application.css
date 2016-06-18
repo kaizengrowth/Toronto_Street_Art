@@ -144,8 +144,8 @@ html input[disabled] {
 }
 button::-moz-focus-inner,
 input::-moz-focus-inner {
-  border: 0;
-  padding: 0;
+  border: 1;
+  padding: 1;
 }
 input {
   line-height: normal;
@@ -5448,6 +5448,9 @@ button.list-group-item-danger.active:focus {
   margin-bottom: 0;
   line-height: 1.3;
 }
+.update_delete_buttons{
+  float: right;
+}
 .panel {
   margin-bottom: 20px;
   background-color: #2e3338;
@@ -5491,11 +5494,27 @@ button.list-group-item-danger.active:focus {
   color: inherit;
 }
 .panel-footer {
+  opacity: 0.5;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
   padding: 10px 15px;
   background-color: #3e444c;
   border-top: 1px solid rgba(0, 0, 0, 0.6);
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
+}
+#footer {
+  opacity: 0.5;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  padding: 10px 15px;
+  background-color: purple;
+  border-top: 1px solid rgba(0, 0, 0, 0.6);
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  text-align: right;
 }
 .panel > .list-group,
 .panel > .panel-collapse > .list-group {

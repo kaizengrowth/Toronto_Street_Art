@@ -3,18 +3,16 @@
       <h1>MY STREET ART</h1>
     <!-- ## Login  ## -->
 
-
   <nav class="navbar navbar-fixed-bottom">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="#">My Street Art</a>
+        <a class="navbar-brand" href="/user_page"><font color="yellow">Gotta catch'em all!</font></a>
       </div>
       <ul class="nav navbar-nav navbar-right">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">Upload Artwork</a></li>
-        <li><a href="#">Edit Collection</a></li>
+        <li class="active"><a href="/">Home</a></li>
+        <li><a href="/user_page/pictures/new">Add Artwork</a></li>
         <li>
-          <form action="/search" method="get" class="navbar-form navbar-left">
+          <form role="search" action="/search" method="get" class="navbar-form navbar-left">
             <div class="form-group">
                 <input type="text" name="street1" placeholder="Street 1" class="form-control">
                 <input type="text" name="street2" placeholder="Street 2" class="form-control">
@@ -36,11 +34,11 @@
 <BODY>
   <div class="jumbotron">
     <div class="panel-login">
-      <h3><%= current_user.name %>'s Pictures</h3>
+      <h4>What's up! <h5> <%= current_user.name %></h5> </h4>
 
       <% if current_user %>
         <form method= 'get' action = '/logout'>
-        <input type="submit" value = "Log Out">
+        <button type="submit" class="btn-warning btn-sm">Log Out</button>
         </form>
       <% else %>
         <form action="/session" method="post">
@@ -53,7 +51,7 @@
         <br>
             <label><input type="checkbox" name="remember_me" value="true"> Remember Me</label>
         <br>
-            <input type="submit" name="submit" value="Log In">
+            <button type="submit" class="btn-warning btn-sm">Log In</button>
           </div>
         </form>
       <% end %>
@@ -67,17 +65,37 @@
 <% current_user.pictures.each do |picture| %>
 
 <div class="picture">
+  <br><br>
   <h2> // <%= picture.intersection.street1%> <small> AND </small> <%= picture.intersection.street2%> // </h2>
   <h3><small>Submitted by:</small> <%= picture.user.name %> </h3>
   <p><small> Posted on: <%= picture.created_at %></small></p>
 
   <img src="<%= picture.img_url %>" width="600">
-  <i><h5><small>Artist:</small> <%= picture.artist_name %> </h5></i>
-  <h6> <%= picture.text %> </h6>
 
-  <br>
-  <br>
+    <div class="comment" style="width: 95%; position: relative; float: left">
+      <i><h5><small>Artist:</small> <%= picture.artist_name %> </h5></i>
+      <br>
+      <h6> <%= picture.text %> </h6>
+    </div>
+
+    <div class="update_delete_buttons" align=right style="width: 5%; position: relative; float: right">
+      <br>
+      <div>
+        <form method="post" action="/pictures/<%= picture.id %>/edit">
+        <botton type="submit" class="btn-primary btn-sm"> Edit </button>
+        </form>
+      </div>
+      <br>
+      <div>
+         <form method="post" action="/pictures/<%= picture.id %>/delete">
+           <botton type="submit" class="btn-danger btn-sm"> Delete </button>
+         </form></div>
+        </div>
 </div>
+<br>
+<br>
+<br>
+<br>
 <% end %>
 
 </BODY>

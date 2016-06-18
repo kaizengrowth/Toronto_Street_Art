@@ -22,7 +22,7 @@ end
 # New
   get '/pictures/new' do
     @picture = Picture.new
-    erb :'pictures/@picture.id'
+    erb :'pictures/new'
   end
 
 # Show

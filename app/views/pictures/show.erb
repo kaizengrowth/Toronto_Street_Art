@@ -1,4 +1,4 @@
-<h1> <%= @user.name %>'s Pictures </h1>¡
+<h1> <%= @user.name %>'s Pictures </h1>
 
 <% @user.pictures.each do |picture| %>
 
@@ -14,3 +14,8 @@
     <br>
   </div>
 <% end %>
+
+<div style="width: 30%; position: relative" align: right>
+  <a href="/" class="btn btn-success btn-md">Home</a>
+  <a href="/user_page" class="btn btn-warning btn-md">My Collection</a>
+</div>
